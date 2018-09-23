@@ -38,7 +38,6 @@ def run_game():
             gf.update_ship_bullets(ship, bullets, aliens, explosion_sound)
             gf.update_alien_fleet(settings, screen, ship, bullets, aliens, alien, stats)
 
-            print('Stats ' + str(stats.ships_limit))
         # Draw
         gf.draw_screen(settings, screen, ship, bullets, aliens)
 
