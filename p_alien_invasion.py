@@ -1,10 +1,11 @@
 import pygame
 import game_functions as gf
-from settings import Settings
+from settinggs import Settings
 from ship import Ship
 from pygame.sprite import Group
 from alien import Alien
 from gamestats import Stats
+from button import Button
 
 
 def run_game():
@@ -14,6 +15,7 @@ def run_game():
     settings = Settings()
     screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
     pygame.display.set_caption('Alien')
+    play_button = Button(settings, screen, 'Play')
 
     bullet_sound = pygame.mixer.Sound('sounds/Laser_Shoot16.ogg')
     explosion_sound = pygame.mixer.Sound('sounds/Explosion20.wav')
@@ -31,7 +33,7 @@ def run_game():
     while True:
 
         # Events
-        gf.check_events(settings, screen, ship, bullets, bullet_sound)
+        gf.check_events(settings, screen, ship, bullets, bullet_sound, play_button, stats, aliens, alien)
 
         # Updates
         if stats.game_active:
@@ -39,7 +41,7 @@ def run_game():
             gf.update_alien_fleet(settings, screen, ship, bullets, aliens, alien, stats)
 
         # Draw
-        gf.draw_screen(settings, screen, ship, bullets, aliens)
+        gf.draw_screen(settings, screen, ship, bullets, aliens, play_button, stats)
 
 
 run_game()
