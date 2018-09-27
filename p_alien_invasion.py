@@ -1,11 +1,12 @@
 import pygame
 import game_functions as gf
-from settinggs import Settings
+from settings import Settings
 from ship import Ship
 from pygame.sprite import Group
 from alien import Alien
 from gamestats import Stats
 from button import Button
+from scoreboard import Scoreboard
 
 
 def run_game():
@@ -23,6 +24,7 @@ def run_game():
     ship = Ship(settings, screen)
     alien = Alien(settings, screen)
     stats = Stats(settings)
+    sb = Scoreboard(settings, screen, stats)
 
     bullets = Group()
     aliens = Group()
@@ -33,15 +35,15 @@ def run_game():
     while True:
 
         # Events
-        gf.check_events(settings, screen, ship, bullets, bullet_sound, play_button, stats, aliens, alien)
+        gf.check_events(settings, screen, ship, bullets, bullet_sound, play_button, stats, aliens, alien, sb)
 
         # Updates
         if stats.game_active:
-            gf.update_ship_bullets(ship, bullets, aliens, explosion_sound)
-            gf.update_alien_fleet(settings, screen, ship, bullets, aliens, alien, stats)
+            gf.update_ship_bullets(settings, ship, bullets, aliens, explosion_sound, stats, sb)
+            gf.update_alien_fleet(settings, screen, ship, bullets, aliens, alien, stats, sb)
 
         # Draw
-        gf.draw_screen(settings, screen, ship, bullets, aliens, play_button, stats)
+        gf.draw_screen(settings, screen, ship, bullets, aliens, play_button, stats, sb)
 
 
 run_game()
